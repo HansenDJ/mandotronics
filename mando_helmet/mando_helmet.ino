@@ -1,97 +1,156 @@
 #include <Servo.h>
 
-// Define constants
-static const int servoPin = 3;
-static const int led1Pin = 20;
-static const int led2Pin = 21;
-static const int buttonPin = 19;
+const int servoPin = 3;
+const int buttonPin = 19;
 
-// Define classes
-Servo radarServo;  
+const int led1Pin = 20;
+const int led2Pin = 21;
 
-// Define variables
-static int pos = 0;    // variable to store the servo position
-static int led1Interval = 252; // Interval (in milliseconds) that LED 1 will toggle
-static int led2Interval = 1000; // Interval (in milliseconds) that LED 2 will toggle
-static int debounceInterval = 1000;  // the debounce time; increase if the output flickers
-static int servoStepInterval = 15;  // time between servo steps
-static uint8_t deviceState = 0;  // high when radar arm is down (on), low when radar arm is up (off)
-static uint8_t led1State = 0;
-static uint8_t led2State = 0;
-static uint8_t buttonState = 0;
-static unsigned long curMillis = 0;
-static unsigned long servoStepTimer = 0;
-static unsigned long Led1Timer = 0;
-static unsigned long Led2Timer = 500;
-static unsigned long debounceTimer = 0;  // the last time the output pin was toggled
+Servo myServo;
 
+// ---- Debounce ----
+const unsigned long debounceMicros = 20000;
+
+// ---- Motion ----
+const unsigned long moveDuration = 1500000; // 1.5s
+
+// ---- LED blink intervals ----
+const unsigned long led1Interval = 250000; // 250 ms
+const unsigned long led2Interval = 1000000; // 1s
+
+// ---- State ----
+volatile bool moveRequested = false;
+volatile bool requestedDirection = true; 
+// true = 0 → -90 (CCW) i.e. 90 → 0
+// false = -90 → 0 (CW) i.e. 0 → 90
+
+volatile bool cycleCompleteFlag = true;
+volatile unsigned long lastButtonInterruptTime = 0;
+
+bool motionActive = false;
+unsigned long motionStartTime = 0;
+
+// LED state
+bool ledBlinkActive = false;
+unsigned long lastLed1Toggle = 0;
+unsigned long lastLed2Toggle = 0;
+bool led1State = false;
+bool led2State = false;
+
+// -------- Button ISR --------
+void handleButton() {
+  unsigned long now = micros();
+
+  if (now - lastButtonInterruptTime < debounceMicros) return;
+  lastButtonInterruptTime = now;
+
+  if (!cycleCompleteFlag) return;
+
+  requestedDirection = !requestedDirection;
+
+  if (!moveRequested) {
+    moveRequested = true;
+  }
+}
+
+// -------- Motion complete --------
+void onMotionComplete() {
+  cycleCompleteFlag = true;
+  motionActive = false;
+
+  // If we just did 0 → -90 (CCW), start LEDs
+  if (requestedDirection) {
+    ledBlinkActive = true;
+  }
+}
+
+// -------- Start motion --------
+void startMove(bool forward) {
+  // If going -90 → 0 (CW), stop LEDs first
+  if (!forward) {
+    ledBlinkActive = false;
+    digitalWrite(led1Pin, LOW);
+    digitalWrite(led2Pin, LOW);
+  }
+
+  motionStartTime = micros();
+  motionActive = true;
+  cycleCompleteFlag = false;
+}
+
+// -------- S-curve --------
+float sCurve(float t) {
+  return (1 - cos(t * PI)) * 0.5;
+}
+
+// -------- Servo update --------
+void updateServo() {
+  if (!motionActive) return;
+
+  unsigned long now = micros();
+  float t = (float)(now - motionStartTime) / moveDuration;
+
+  if (t >= 1.0) t = 1.0;
+
+  float s = sCurve(t);
+
+  int angle;
+
+  if (requestedDirection) {
+    // 0 → -90 (CCW) = 90 → 0
+    angle = 90 - (90 * s);
+  } else {
+    // -90 → 0 (CW) = 0 → 90
+    angle = 0 + (90 * s);
+  }
+
+  myServo.write(angle);
+
+  if (t >= 1.0) {
+    onMotionComplete();
+  }
+}
+
+// -------- LED update --------
+void updateLEDs() {
+  if (!ledBlinkActive) return;
+
+  unsigned long now = micros();
+
+  if (now - lastLed1Toggle >= led1Interval) {
+    lastLed1Toggle = now;
+    led1State = !led1State;
+    digitalWrite(led1Pin, led1State);
+  }
+
+  if (now - lastLed2Toggle >= led2Interval) {
+    lastLed2Toggle = now;
+    led2State = !led2State;
+    digitalWrite(led2Pin, led2State);
+  }
+}
+
+// -------- Setup --------
 void setup() {
-  // Setup Servos
-  radarServo.attach(servoPin);
-
-  // Setup LEDs
+  pinMode(buttonPin, INPUT_PULLUP);
   pinMode(led1Pin, OUTPUT);
   pinMode(led2Pin, OUTPUT);
 
-  // Setup button
-  pinMode(buttonPin, INPUT_PULLUP);
+  myServo.attach(servoPin);
+
+  // Start at "90°" (center = 90)
+  myServo.write(90);
+
+  attachInterrupt(digitalPinToInterrupt(buttonPin), handleButton, FALLING);
 }
 
+// -------- Loop --------
 void loop() {
-  // Get current program run time
-  curMillis = millis();
-  // Is button pushed?
-  buttonState = digitalRead(buttonPin);
+  updateServo();
+  updateLEDs();
 
-  if (curMillis - debounceTimer >= debounceInterval){
-    // whatever the reading is at, it's been there for longer than the debounce
-    // delay, so take it as the actual current state:
-
-    // only toggle the device state if the new button state is HIGH
-    if (buttonState == LOW){
-      deviceState = !deviceState;
-      debounceTimer = curMillis;
-    }
-  }
-
-  if (deviceState == HIGH){
-    if (curMillis - servoStepTimer >= servoStepInterval){
-      if (pos != 90){
-        // Sweep radar arm to down positon when device state is active (90 deg)
-        for (pos = 0; pos <= 90; pos += 1) { // goes from 0 degrees to 90 degrees
-          // in steps of 1 degree
-          radarServo.write(pos);              // tell servo to go to position in variable 'pos'
-          
-        }
-      }
-    }
-
-    // Toggle LED 1 if enough time passed
-    if (curMillis - Led1Timer >= led1Interval){
-      led1State = led1State ^ 1;
-      Led1Timer = curMillis;
-    }
-    
-    // Toggle LED 2 if enough time passed
-    if (curMillis - Led2Timer >= led2Interval){
-      led2State = led2State ^ 1;
-      Led2Timer = curMillis;
-    }
-
-    // Set LED pins
-    digitalWrite(led1Pin, led1State);
-    digitalWrite(led2Pin, led2State);
-  }
-  
-  else {
-    digitalWrite(led1Pin, LOW);
-    digitalWrite(led2Pin, LOW);
-    if (curMillis - servoStepTimer >= servoStepInterval){
-      if (pos != 0){
-        for (pos = 90; pos >= 0; pos -= 1) { // goes from 90 degrees to 0 degrees
-          radarServo.write(pos);              // tell servo to go to position in variable 'pos'
-        }
-      }
-    }
+  if (moveRequested && cycleCompleteFlag) {
+    moveRequested = false;
+    startMove(requestedDirection);
   }
 }
