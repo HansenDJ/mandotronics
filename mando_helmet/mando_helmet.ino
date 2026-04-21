@@ -1,4 +1,5 @@
 #include <Servo.h>
+#include <EEPROM.h>
 
 const int servoPin = 3;
 const int buttonPin = 19;
@@ -8,11 +9,17 @@ const int led2Pin = 21;
 
 Servo myServo;
 
+// ---- EEPROM ----
+const int eepromMagicAddr = 0;
+const int eepromAngleAddr = 1;
+const byte eepromMagicValue = 0x4D;
+
 // ---- Debounce ----
 const unsigned long debounceMicros = 20000;
 
 // ---- Motion ----
 const unsigned long moveDuration = 1500000; // 1.5s
+const unsigned long startupMicrosPerDegree = 15000; // 15 ms per degree
 
 // ---- LED blink intervals ----
 const unsigned long led1Interval = 250000; // 250 ms
@@ -20,7 +27,7 @@ const unsigned long led2Interval = 1000000; // 1s
 
 // ---- State ----
 volatile bool moveRequested = false;
-volatile bool requestedDirection = true; 
+volatile bool requestedDirection = false;
 // true = 0 → -90 (CCW) i.e. 90 → 0
 // false = -90 → 0 (CW) i.e. 0 → 90
 
@@ -30,12 +37,37 @@ volatile unsigned long lastButtonInterruptTime = 0;
 bool motionActive = false;
 unsigned long motionStartTime = 0;
 
+// Startup homing state
+bool startupHomingActive = false;
+unsigned long startupHomeStartTime = 0;
+unsigned long startupHomeDuration = 1;
+int startupHomeFromAngle = 90;
+
 // LED state
 bool ledBlinkActive = false;
 unsigned long lastLed1Toggle = 0;
 unsigned long lastLed2Toggle = 0;
 bool led1State = false;
 bool led2State = false;
+
+// -------- EEPROM helpers --------
+void saveLastServoAngle(byte angle) {
+  EEPROM.update(eepromMagicAddr, eepromMagicValue);
+  EEPROM.update(eepromAngleAddr, angle);
+}
+
+int loadLastServoAngle() {
+  if (EEPROM.read(eepromMagicAddr) != eepromMagicValue) {
+    return 90;
+  }
+
+  byte angle = EEPROM.read(eepromAngleAddr);
+  if (angle > 180) {
+    return 90;
+  }
+
+  return (int)angle;
+}
 
 // -------- Button ISR --------
 void handleButton() {
@@ -58,9 +90,47 @@ void onMotionComplete() {
   cycleCompleteFlag = true;
   motionActive = false;
 
+  // Persist endpoint so the next boot can start from the last known position.
+  if (requestedDirection) {
+    saveLastServoAngle(0);
+  } else {
+    saveLastServoAngle(90);
+  }
+
   // If we just did 0 → -90 (CCW), start LEDs
   if (requestedDirection) {
     ledBlinkActive = true;
+  }
+}
+
+// -------- Startup home-to-90 update --------
+float startupSCurveProfile(float t) {
+  // Quintic smoothstep S-curve: zero velocity and zero acceleration
+  // at start/end for the gentlest possible takeoff/landing.
+  if (t <= 0.0f) return 0.0f;
+  if (t >= 1.0f) return 1.0f;
+
+  return t * t * t * (t * (t * 6.0f - 15.0f) + 10.0f);
+}
+
+void updateStartupHoming() {
+  if (!startupHomingActive) return;
+
+  unsigned long now = micros();
+  float t = (float)(now - startupHomeStartTime) / startupHomeDuration;
+
+  if (t >= 1.0) t = 1.0;
+
+  float s = startupSCurveProfile(t);
+  float angleF = startupHomeFromAngle + (90 - startupHomeFromAngle) * s;
+  int angle = (int)(angleF + 0.5f);
+
+  myServo.write(angle);
+
+  if (t >= 1.0) {
+    startupHomingActive = false;
+    cycleCompleteFlag = true;
+    saveLastServoAngle(90);
   }
 }
 
@@ -136,16 +206,38 @@ void setup() {
   pinMode(led1Pin, OUTPUT);
   pinMode(led2Pin, OUTPUT);
 
+  digitalWrite(led1Pin, LOW);
+  digitalWrite(led2Pin, LOW);
+
+  int lastKnownAngle = loadLastServoAngle();
   myServo.attach(servoPin);
 
-  // Start at "90°" (center = 90)
-  myServo.write(90);
+  // Set the first commanded position to the last known endpoint to avoid a hard
+  // startup snap to 90 before homing.
+  myServo.write(lastKnownAngle);
+
+  if (lastKnownAngle != 90) {
+    startupHomingActive = true;
+    cycleCompleteFlag = false;
+    startupHomeFromAngle = lastKnownAngle;
+
+    unsigned long distance = (unsigned long)abs(90 - lastKnownAngle);
+    startupHomeDuration = distance * startupMicrosPerDegree;
+    if (startupHomeDuration == 0) startupHomeDuration = 1;
+    startupHomeStartTime = micros();
+  }
+
+  if (!startupHomingActive) {
+    cycleCompleteFlag = true;
+    saveLastServoAngle(90);
+  }
 
   attachInterrupt(digitalPinToInterrupt(buttonPin), handleButton, FALLING);
 }
 
 // -------- Loop --------
 void loop() {
+  updateStartupHoming();
   updateServo();
   updateLEDs();
 
