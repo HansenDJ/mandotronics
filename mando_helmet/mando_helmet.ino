@@ -4,8 +4,8 @@
 const int servoPin = 3;
 const int buttonPin = 19;
 
-const int led1Pin = 20;
-const int led2Pin = 21;
+const int led1Pin = 5;  // Amber LED
+const int led2Pin = 6;  // Green LED
 
 Servo myServo;
 
