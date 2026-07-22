@@ -7,8 +7,10 @@ Uses an Arduino Nano Every microcontroller, a 9g servo motor, 2 LEDs, and 1 pres
 
 ## Jetpack
 Uses an Arduino Nano Every microcontroller and 4 LEDs to simulate a pulsing flame at the bottom of each jet of a Mandalorian jetpack. 2 LEDs are mapped to the 2 different jet boosters.
+![Jetpack schematic with Arduino Nano Every microcontroller](./schematics/mando_jetpack_schematic.png)
 
 ## Whistling Birds
 The goal for this module is to display a light sequence on LEDs to represent the "whistling birds,"
 or the wrist rockets Mandalorians will use. The microcontroller will be the Pi Pico and we will use
 6 slices/12 channels of the PWM module for each of the 12 LEDs. 
+![Whistling Birds schematic with Pi Pico microcontroller](./schematics/whistling_birds.png)
