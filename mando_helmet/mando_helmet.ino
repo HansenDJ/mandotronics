@@ -16,6 +16,7 @@ const byte eepromMagicValue = 0x4D;
 
 // ---- Debounce ----
 const unsigned long debounceMicros = 20000;
+const unsigned long noiseLockoutMicros = 500000; // 500ms lockout after motion
 
 // ---- Motion ----
 const unsigned long moveDuration = 1500000; // 1.5s
@@ -33,6 +34,7 @@ volatile bool requestedDirection = false;
 
 volatile bool cycleCompleteFlag = true;
 volatile unsigned long lastButtonInterruptTime = 0;
+volatile unsigned long motionCompletionTime = 0;
 
 bool motionActive = false;
 unsigned long motionStartTime = 0;
@@ -72,7 +74,12 @@ int loadLastServoAngle() {
 // -------- Button ISR --------
 void handleButton() {
   unsigned long now = micros();
-
+// Basic debounce
+  if (now - lastButtonInterruptTime < debounceMicros) return;
+  
+  // Electrical noise lockout after motion finishes to prevent "phantom" triggers
+  if (now - motionCompletionTime < noiseLockoutMicros) return;
+  
   if (now - lastButtonInterruptTime < debounceMicros) return;
   lastButtonInterruptTime = now;
 
@@ -89,6 +96,7 @@ void handleButton() {
 void onMotionComplete() {
   cycleCompleteFlag = true;
   motionActive = false;
+  motionCompletionTime = micros();
 
   // Persist endpoint so the next boot can start from the last known position.
   if (requestedDirection) {
@@ -205,7 +213,15 @@ void setup() {
   pinMode(buttonPin, INPUT_PULLUP);
   pinMode(led1Pin, OUTPUT);
   pinMode(led2Pin, OUTPUT);
+// Visual boot indicator (helps diagnose resets)
+  digitalWrite(led1Pin, HIGH);
+  digitalWrite(led2Pin, HIGH);
+  delay(100);
+  digitalWrite(led1Pin, LOW);
+  digitalWrite(led2Pin, LOW);
+  delay(100);
 
+  
   digitalWrite(led1Pin, LOW);
   digitalWrite(led2Pin, LOW);
 
