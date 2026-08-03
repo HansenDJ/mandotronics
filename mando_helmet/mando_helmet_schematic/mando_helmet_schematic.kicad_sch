@@ -14,8 +14,8 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "A"
-				(at 0 33.02 0)
+			(property "Reference" "A1"
+				(at 0 31.75 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -57,7 +57,7 @@
 				)
 			)
 			(property "Description" "Socket for Arduino Nano Every"
-				(at 0 0 0)
+				(at 0.254 1.27 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -103,7 +103,7 @@
 				)
 				(polyline
 					(pts
-						(xy -11.43 -22.86) (xy -5.08 -22.86) (xy -5.08 -21.59)
+						(xy -12.7 -17.78) (xy -6.35 -17.78) (xy -6.35 -16.51)
 					)
 					(stroke
 						(width 0)
@@ -115,7 +115,7 @@
 				)
 				(polyline
 					(pts
-						(xy -10.16 22.86) (xy -7.62 22.86) (xy -7.62 20.32) (xy -10.16 20.32)
+						(xy -6.35 -11.43) (xy -6.35 -10.16) (xy -13.97 -10.16)
 					)
 					(stroke
 						(width 0)
@@ -127,7 +127,7 @@
 				)
 				(polyline
 					(pts
-						(xy -8.89 7.62) (xy -7.62 7.62) (xy -7.62 5.08) (xy -8.89 5.08)
+						(xy -1.27 0) (xy 0 0) (xy 0 -2.54) (xy -1.27 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -139,7 +139,7 @@
 				)
 				(polyline
 					(pts
-						(xy -7.62 21.59) (xy -6.35 21.59)
+						(xy 0 -1.27) (xy 1.27 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -151,7 +151,7 @@
 				)
 				(polyline
 					(pts
-						(xy -7.62 6.35) (xy -6.35 6.35)
+						(xy 7.62 -16.51) (xy 6.35 -16.51)
 					)
 					(stroke
 						(width 0)
@@ -163,7 +163,7 @@
 				)
 				(polyline
 					(pts
-						(xy -5.08 -13.97) (xy -5.08 -12.7) (xy -12.7 -12.7)
+						(xy 10.16 -15.24) (xy 7.62 -15.24) (xy 7.62 -17.78) (xy 10.16 -17.78)
 					)
 					(stroke
 						(width 0)
@@ -171,42 +171,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 8.89 -19.05) (xy 6.35 -19.05)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(text "Serial"
-					(at -5.08 21.59 900)
-					(effects
-						(font
-							(size 1.524 1.524)
-						)
-					)
-				)
-				(text "I²C"
-					(at -5.08 6.35 900)
-					(effects
-						(font
-							(size 1.524 1.524)
-						)
-					)
-				)
-				(text "Power"
-					(at -5.08 -17.78 900)
-					(effects
-						(font
-							(size 1.524 1.524)
-						)
 					)
 				)
 				(text "Analog"
@@ -217,8 +181,16 @@
 						)
 					)
 				)
-				(text "Misc."
-					(at 5.08 -19.05 900)
+				(text "I²C"
+					(at 2.54 -1.27 900)
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(text "Serial"
+					(at 5.08 -16.51 900)
 					(effects
 						(font
 							(size 1.524 1.524)
@@ -229,7 +201,7 @@
 			(symbol "Arduino_Nano_Every_Socket_0_1"
 				(polyline
 					(pts
-						(xy -13.97 12.7) (xy -2.54 12.7) (xy -2.54 7.62)
+						(xy -11.43 12.7) (xy -2.54 12.7) (xy -2.54 7.62)
 					)
 					(stroke
 						(width 0)
@@ -241,7 +213,7 @@
 				)
 				(polyline
 					(pts
-						(xy -11.43 -7.62) (xy -2.54 -7.62) (xy -2.54 -2.54)
+						(xy -8.89 -7.62) (xy -2.54 -7.62) (xy -2.54 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -253,7 +225,7 @@
 				)
 				(polyline
 					(pts
-						(xy 7.62 -5.08) (xy 5.08 -5.08) (xy 5.08 5.08)
+						(xy 7.62 -10.16) (xy 5.08 -10.16) (xy 5.08 0)
 					)
 					(stroke
 						(width 0)
@@ -265,19 +237,7 @@
 				)
 				(polyline
 					(pts
-						(xy 10.16 -17.78) (xy 8.89 -17.78) (xy 8.89 -20.32) (xy 10.16 -20.32)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 13.97 22.86) (xy 5.08 22.86) (xy 5.08 12.7)
+						(xy 13.97 17.78) (xy 5.08 17.78) (xy 5.08 7.62)
 					)
 					(stroke
 						(width 0)
@@ -290,7 +250,7 @@
 			)
 			(symbol "Arduino_Nano_Every_Socket_1_0"
 				(text "GPIO"
-					(at 5.08 8.89 900)
+					(at 5.08 3.81 900)
 					(effects
 						(font
 							(size 1.524 1.524)
@@ -299,8 +259,16 @@
 				)
 			)
 			(symbol "Arduino_Nano_Every_Socket_1_1"
+				(text "Pwr"
+					(at -6.35 -13.97 900)
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
 				(pin power_out line
-					(at -25.4 -17.78 0)
+					(at -25.4 15.24 0)
 					(length 7.62)
 					(name "3.3V"
 						(effects
@@ -318,7 +286,7 @@
 					)
 				)
 				(pin power_in line
-					(at -25.4 -15.24 0)
+					(at -25.4 -10.16 0)
 					(length 7.62)
 					(name "5V"
 						(effects
@@ -336,16 +304,16 @@
 					)
 				)
 				(pin bidirectional line
-					(at -25.4 -5.08 0)
+					(at -25.4 10.16 0)
 					(length 7.62)
-					(name "A0"
+					(name "A0/D14"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A0"
+					(number "A0/D14"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -354,52 +322,16 @@
 					)
 				)
 				(pin bidirectional line
-					(at -25.4 -2.54 0)
+					(at -25.4 7.62 0)
 					(length 7.62)
-					(name "A1"
+					(name "A1/D15"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -25.4 0 0)
-					(length 7.62)
-					(name "A2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -25.4 2.54 0)
-					(length 7.62)
-					(name "A3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A3"
+					(number "A1/D15"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -410,14 +342,50 @@
 				(pin bidirectional line
 					(at -25.4 5.08 0)
 					(length 7.62)
-					(name "A4/SDA"
+					(name "A2/D16"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A4"
+					(number "A2/D16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -25.4 2.54 0)
+					(length 7.62)
+					(name "A3/D17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A3/D17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -25.4 0 0)
+					(length 7.62)
+					(name "A4/D18/SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A4/D18"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -426,16 +394,16 @@
 					)
 				)
 				(pin bidirectional clock
-					(at -25.4 7.62 0)
+					(at -25.4 -2.54 0)
 					(length 7.62)
-					(name "A5/SCL"
+					(name "A5/D19/SCL"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A5"
+					(number "A5/D19"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -444,34 +412,16 @@
 					)
 				)
 				(pin input line
-					(at -25.4 10.16 0)
+					(at -25.4 -5.08 0)
 					(length 7.62)
-					(name "A6"
+					(name "A6/D20"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -25.4 12.7 0)
-					(length 7.62)
-					(name "A7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A7"
+					(number "A6/D20"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -481,6 +431,24 @@
 				)
 				(pin input line
 					(at -25.4 -7.62 0)
+					(length 7.62)
+					(name "A7/D21"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A7/D21"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -25.4 12.7 0)
 					(length 7.62)
 					(name "AREF"
 						(effects
@@ -498,9 +466,9 @@
 					)
 				)
 				(pin bidirectional line
-					(at -25.4 22.86 0)
+					(at 25.4 -17.78 180)
 					(length 7.62)
-					(name "D0/RX"
+					(name "D0/TX"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -516,9 +484,9 @@
 					)
 				)
 				(pin bidirectional line
-					(at -25.4 20.32 0)
+					(at 25.4 -15.24 180)
 					(length 7.62)
-					(name "D1/TX"
+					(name "D1/RX"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -534,7 +502,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 25.4 22.86 180)
+					(at 25.4 -7.62 180)
 					(length 7.62)
 					(name "D2"
 						(effects
@@ -552,25 +520,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 25.4 20.32 180)
-					(length 7.62)
-					(name "D3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "D3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 25.4 17.78 180)
+					(at 25.4 -2.54 180)
 					(length 7.62)
 					(name "D4"
 						(effects
@@ -588,43 +538,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 25.4 15.24 180)
-					(length 7.62)
-					(name "D5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "D5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 25.4 12.7 180)
-					(length 7.62)
-					(name "D6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "D6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 25.4 10.16 180)
+					(at 25.4 5.08 180)
 					(length 7.62)
 					(name "D7"
 						(effects
@@ -660,45 +574,9 @@
 					)
 				)
 				(pin bidirectional line
-					(at 25.4 5.08 180)
+					(at 25.4 15.24 180)
 					(length 7.62)
-					(name "D9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "D9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 25.4 2.54 180)
-					(length 7.62)
-					(name "D10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "D10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 25.4 0 180)
-					(length 7.62)
-					(name "D11_MOSI"
+					(name "D11"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -714,9 +592,9 @@
 					)
 				)
 				(pin bidirectional line
-					(at 25.4 -2.54 180)
+					(at 25.4 17.78 180)
 					(length 7.62)
-					(name "D12_MISO"
+					(name "D12"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -732,7 +610,7 @@
 					)
 				)
 				(pin bidirectional clock
-					(at 25.4 -5.08 180)
+					(at -25.4 17.78 0)
 					(length 7.62)
 					(name "D13_SCK"
 						(effects
@@ -750,7 +628,7 @@
 					)
 				)
 				(pin power_in line
-					(at -25.4 -20.32 0)
+					(at 25.4 -10.16 180)
 					(length 7.62)
 					(name "GND"
 						(effects
@@ -768,7 +646,7 @@
 					)
 				)
 				(pin power_in line
-					(at -25.4 -22.86 0)
+					(at -25.4 -15.24 0)
 					(length 7.62)
 					(name "GND"
 						(effects
@@ -786,7 +664,7 @@
 					)
 				)
 				(pin open_collector input_low
-					(at 25.4 -17.78 180)
+					(at 25.4 -12.7 180)
 					(length 7.62)
 					(name "RESET"
 						(effects
@@ -804,7 +682,7 @@
 					)
 				)
 				(pin open_collector input_low
-					(at 25.4 -20.32 180)
+					(at -25.4 -12.7 0)
 					(length 7.62)
 					(name "RESET"
 						(effects
@@ -822,7 +700,7 @@
 					)
 				)
 				(pin power_in line
-					(at -25.4 -12.7 0)
+					(at -25.4 -17.78 0)
 					(length 7.62)
 					(name "VIN"
 						(effects
@@ -839,13 +717,103 @@
 						)
 					)
 				)
+				(pin bidirectional line
+					(at 25.4 -5.08 180)
+					(length 7.62)
+					(name "~D3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "~D3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 0 180)
+					(length 7.62)
+					(name "~D5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "~D5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 2.54 180)
+					(length 7.62)
+					(name "~D6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "~D6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 10.16 180)
+					(length 7.62)
+					(name "~D9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "~D9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 12.7 180)
+					(length 7.62)
+					(name "~D10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "~D10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
 			(embedded_fonts no)
 		)
 	)
 	(symbol
 		(lib_id "PCM_arduino-library:Arduino_Nano_Every_Socket")
-		(at 144.78 82.55 0)
+		(at 64.77 66.04 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -854,9 +822,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "83a5ae2e-62fd-456b-bbf6-171ad7ded079")
+		(uuid "167b5e90-19bf-4c47-9b0b-b53fc579e7a5")
 		(property "Reference" "A1"
-			(at 144.78 50.8 0)
+			(at 64.77 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -866,7 +834,7 @@
 			)
 		)
 		(property "Value" "Arduino_Nano_Every_Socket"
-			(at 144.78 53.34 0)
+			(at 64.77 36.83 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -876,7 +844,7 @@
 			)
 		)
 		(property "Footprint" "PCM_arduino-library:Arduino_Nano_Every_Socket"
-			(at 144.78 116.84 0)
+			(at 64.77 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -887,7 +855,7 @@
 			)
 		)
 		(property "Datasheet" "https://docs.arduino.cc/hardware/nano-every"
-			(at 144.78 113.03 0)
+			(at 64.77 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -898,7 +866,7 @@
 			)
 		)
 		(property "Description" "Socket for Arduino Nano Every"
-			(at 144.78 82.55 0)
+			(at 65.024 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -908,95 +876,95 @@
 				)
 			)
 		)
-		(pin "3V3"
-			(uuid "6b412d8c-483f-4b0a-b98a-69dd1ec57a55")
-		)
-		(pin "A0"
-			(uuid "22cb5a61-8c82-42ed-bfbf-10515faf6395")
-		)
-		(pin "A3"
-			(uuid "05e2b692-9dd3-4a3e-bbe4-14be69d1f23e")
-		)
-		(pin "A5"
-			(uuid "abbf45d2-e6f8-4594-a382-583e0b8a4170")
-		)
-		(pin "A7"
-			(uuid "6996f880-4766-4b53-911c-a33c606a3f8b")
-		)
-		(pin "D0"
-			(uuid "e5a3e1c5-5768-41a8-a78e-811b3e5a9fae")
+		(pin "D4"
+			(uuid "5f08ff68-8638-46b0-a532-773bbd5587f5")
 		)
 		(pin "5V"
-			(uuid "ecc14cc0-ffe9-4f8a-a819-cc898d63785e")
-		)
-		(pin "A1"
-			(uuid "81f6dd56-35b5-4128-943c-c344b997b3ae")
-		)
-		(pin "A2"
-			(uuid "3c9b0029-0d7c-473d-ab6d-bf9827e394b8")
-		)
-		(pin "A4"
-			(uuid "a098c1fe-d9b1-4a4d-84c3-9d967764b47e")
-		)
-		(pin "A6"
-			(uuid "c9cb2786-77be-4e02-983c-2b9214c922e4")
-		)
-		(pin "AREF"
-			(uuid "1264c4e3-da60-4910-a1c9-a9d5684de42e")
-		)
-		(pin "D6"
-			(uuid "36475f6b-826a-4aec-b405-fc152a8d861f")
-		)
-		(pin "D13"
-			(uuid "feee87ac-786f-4efc-8843-30b431f9563a")
-		)
-		(pin "D1"
-			(uuid "b021a8c0-b142-4c61-8208-6ae36c7d1602")
-		)
-		(pin "D11"
-			(uuid "eb13dcbc-6c63-4c06-9ee0-7f193b335830")
-		)
-		(pin "D10"
-			(uuid "87b9fae8-e7c8-4f7e-8878-c4a47d0e3089")
-		)
-		(pin "D12"
-			(uuid "150080ab-ee7a-4e4f-b4e5-0aad1edbbb0d")
-		)
-		(pin "GND1"
-			(uuid "e8cc8afa-e16d-4c31-a129-4f6a453e9bfb")
-		)
-		(pin "D8"
-			(uuid "d5563d5c-d1b4-4835-9073-ac14f159f9d7")
-		)
-		(pin "GND2"
-			(uuid "3e6ed43b-3464-4d4c-8b5e-ec6b4258b39b")
-		)
-		(pin "D9"
-			(uuid "6fd37c29-eaa3-45ac-bcbe-bcebc63e2676")
+			(uuid "a398d3b3-e7a8-4715-826d-c7999f091f4e")
 		)
 		(pin "D2"
-			(uuid "341bc590-8150-4ee0-a384-fcad9bff2bc4")
+			(uuid "9e500e49-2844-496c-b3f2-d3ea6086d713")
 		)
 		(pin "D7"
-			(uuid "1b95007b-36b1-421b-93ed-1dacbb8d5a79")
+			(uuid "4c20cffb-71f5-4105-b4e8-9ec5899e4392")
 		)
-		(pin "D4"
-			(uuid "3013b9d8-5748-4a23-9ffe-e075f6f45350")
+		(pin "A3/D17"
+			(uuid "e4b3e381-ff83-4596-ae88-783d87986823")
 		)
-		(pin "D3"
-			(uuid "3617b9e4-6d12-4479-96aa-b3cbb1b6730c")
+		(pin "A0/D14"
+			(uuid "1540993e-e20d-4b8e-97dc-6264565029bc")
 		)
-		(pin "RST1"
-			(uuid "9ebae14e-fca4-41a2-8265-30a71031299d")
+		(pin "~D6"
+			(uuid "4e361e65-9b7f-4d87-8d98-a528c7383b6f")
 		)
-		(pin "D5"
-			(uuid "cfabb236-ab62-4a08-b4e2-f840e08a081d")
+		(pin "~D5"
+			(uuid "5fcb8585-39d9-4968-b497-bb82eb586560")
+		)
+		(pin "A2/D16"
+			(uuid "e3c54fcb-0c88-439d-952c-44c91499154b")
+		)
+		(pin "GND2"
+			(uuid "ce223d9b-d7f4-4178-88a1-6d29bf3aad85")
+		)
+		(pin "A4/D18"
+			(uuid "fa2fe663-8d6e-4956-b414-6b973c822490")
+		)
+		(pin "~D9"
+			(uuid "a7885a05-388a-49e7-a0ba-04a8418f9245")
+		)
+		(pin "D12"
+			(uuid "88c35f54-95c5-48ed-ae9f-728609ea37fd")
 		)
 		(pin "VIN"
-			(uuid "b345c159-740d-4dfb-a104-791e07284399")
+			(uuid "51e89b7d-78d4-4929-bdd8-1ebe8423936b")
+		)
+		(pin "A6/D20"
+			(uuid "a543565a-80d2-4e1e-a908-390de10ad803")
+		)
+		(pin "D1"
+			(uuid "aefe15fa-01c9-4aa8-a132-352eea08e481")
+		)
+		(pin "GND1"
+			(uuid "4ef7608c-2b8e-464e-95a2-53b861d6f718")
+		)
+		(pin "D0"
+			(uuid "60d1e420-255e-409b-b2dd-46a3986ac371")
+		)
+		(pin "A7/D21"
+			(uuid "500e2636-71a8-497d-87d1-c9e9d2087c7d")
+		)
+		(pin "AREF"
+			(uuid "0ac346a8-8ac3-4961-a17a-a12fdaa6896a")
+		)
+		(pin "A5/D19"
+			(uuid "2b822c80-2f7d-47ef-9c8e-a8126258e68d")
+		)
+		(pin "3V3"
+			(uuid "66ed3a90-fb64-4f2d-b278-4c09a6f4c3df")
+		)
+		(pin "A1/D15"
+			(uuid "c5644dbe-081d-42a7-abba-bce94113ffe3")
+		)
+		(pin "D8"
+			(uuid "8877cd66-9cb7-4c0c-ae5a-710286fef693")
+		)
+		(pin "D11"
+			(uuid "f209a051-89d1-439f-9036-200a8f8e9989")
+		)
+		(pin "D13"
+			(uuid "822b8b18-3e4b-467a-9ea3-7ac03d6e643b")
+		)
+		(pin "RST1"
+			(uuid "edb0c81b-e9bb-4667-9753-3a93db4951fb")
 		)
 		(pin "RST2"
-			(uuid "5130e410-6380-40b3-9b96-5d5a6415fc76")
+			(uuid "0b887d8b-88d1-4785-be64-7cc012331bfd")
+		)
+		(pin "~D3"
+			(uuid "a9ed2e30-c285-4c1b-aed7-0673b834d440")
+		)
+		(pin "~D10"
+			(uuid "6300596f-b20e-439e-94d4-25124e9e7444")
 		)
 		(instances
 			(project "mando_helmet_schematic"
