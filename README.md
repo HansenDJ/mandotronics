@@ -4,6 +4,7 @@ There are 3 modules: Helmet Radar, Jetpack, and Whistling Birds
 
 ## Helmet Radar
 Uses an Arduino Nano Every microcontroller, a 9g servo motor, 2 LEDs, and 1 press button to lower and raise the radar arm of a Mandalorian helmet, blinking 2 LEDs when the arm is lowered.
+![Jetpack schematic with Arduino Nano Every microcontroller](./mando_helmet/mando_helmet_radar_schematic.jpg)
 
 ## Jetpack
 Uses an Arduino Nano Every microcontroller and 4 LEDs to simulate a pulsing flame at the bottom of each jet of a Mandalorian jetpack. 2 LEDs are mapped to the 2 different jet boosters.
