@@ -10,7 +10,7 @@ Uses an Arduino Nano Every microcontroller and 4 LEDs to simulate a pulsing flam
 ![Jetpack schematic with Arduino Nano Every microcontroller](./mando_jetpack/mando_jetpack_schematic.png)
 
 ## Whistling Birds
-This module to display a light sequence on LEDs to represent the "whistling birds,"
-or the wrist rockets Mandalorians use. It uses the Pi Pico microcontroller using
+This module displays a light sequence on LEDs to represent the whistling birds,
+or wrist rockets Mandalorians use. It uses the Pi Pico microcontroller using
 6 slices/12 channels of the PWM module for each of the 12 LEDs. 
 ![Whistling Birds schematic with Pi Pico microcontroller](./whistling_birds/whistling_birds_schematic.png)
