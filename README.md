@@ -1,6 +1,10 @@
 # Mandotronics
-This project is to make hardware and software for Mandalorian cosplay electronics.
-There are 3 modules: Helmet Radar, Jetpack, and Whistling Birds
+This project contains schematics and firmware for electronic modules for a Mandalorian cosplay suit. The three modules are:
+- Helmet Radar
+- Jetpack
+- Whistling Birds
+
+![Full Mandalorian cosplay suit with electronics hooked up.](./full_mandalorian_suit.jpg)
 
 ## Helmet Radar
 Uses an Arduino Nano Every microcontroller, a 9g servo motor, 2 LEDs, and 1 press button to lower and raise the radar arm of a Mandalorian helmet, blinking 2 LEDs when the arm is lowered.
